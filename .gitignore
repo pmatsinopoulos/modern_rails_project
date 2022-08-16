@@ -29,3 +29,7 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+# Ignore Visual Studio Code files
+.vscode
+*.code-workspace
