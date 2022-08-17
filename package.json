@@ -5,7 +5,10 @@
     "esbuild": "^0.15.3"
   },
   "scripts": {
-    "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=assets --global-name=myAwesomeProject"
+    "build:js": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=assets --global-name=myAwesomeProject",
+    "build": "yarn build:js",
+    "failure:js": "rm ./app/assets/builds/application.js && rm ./app/assets/builds/application.js.map",
+    "dev": "tsc-watch --noClear -p tsconfig.json --onSuccess \"yarn build:js\" --onFailure \"yarn failure:js\""
   },
   "devDependencies": {
     "tsc-watch": "^5.0.3",
