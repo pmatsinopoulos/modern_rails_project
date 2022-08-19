@@ -1,1 +1,3 @@
-<%= link_to 'Contact Us', contact_us_new_path %>
+<%= turbo_frame_tag "contact-us-form" do %>
+  <%= link_to 'Contact Us', contact_us_new_path %>
+<% end %>
