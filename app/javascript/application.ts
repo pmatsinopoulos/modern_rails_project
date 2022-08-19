@@ -1,4 +1,5 @@
 // Entry point for the build script in your package.json
+import '@hotwired/turbo-rails'
 
 const appElement = document.getElementById('app')
 if (appElement) {
