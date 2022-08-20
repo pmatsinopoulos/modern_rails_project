@@ -1,3 +1,9 @@
 <%= turbo_frame_tag "contact-us-form" do %>
   <%= link_to 'Contact Us', contact_us_new_path %>
 <% end %>
+
+<div id="messages">
+  <% @messages.each do |message| %>
+    <%= render partial: 'contact_us/message', locals: { message: message } %>
+  <% end %>
+</div>
