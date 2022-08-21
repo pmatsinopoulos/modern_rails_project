@@ -11,7 +11,9 @@
   </head>
 
   <body>
-    <div id="app"></div>
+    <div id="app" data-controller="hello">
+      <strong data-hello-target="greet"></strong>
+    </div>
     <%= yield %>
   </body>
 </html>
