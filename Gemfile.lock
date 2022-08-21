@@ -213,6 +213,11 @@ GEM
     rubocop-rspec (2.12.1)
       rubocop (~> 1.31)
     ruby-progressbar (1.11.0)
+    sentry-rails (5.4.2)
+      railties (>= 5.0)
+      sentry-ruby (~> 5.4.2)
+    sentry-ruby (5.4.2)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
     stimulus-rails (1.1.0)
       railties (>= 6.0.0)
     strscan (3.0.4)
@@ -255,6 +260,8 @@ DEPENDENCIES
   rubocop
   rubocop-rails
   rubocop-rspec
+  sentry-rails
+  sentry-ruby
   stimulus-rails
   turbo-rails
   tzinfo-data
