@@ -71,6 +71,7 @@ GEM
     bootsnap (1.13.0)
       msgpack (~> 1.2)
     builder (3.2.4)
+    childprocess (4.1.0)
     concurrent-ruby (1.1.10)
     crass (1.0.6)
     cssbundling-rails (1.1.1)
@@ -85,6 +86,7 @@ GEM
       activesupport (>= 5.0)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
+    iniparse (1.5.0)
     io-console (0.5.11)
     irb (1.4.1)
       reline (>= 0.3.0)
@@ -121,6 +123,10 @@ GEM
     nio4r (2.5.8)
     nokogiri (1.13.8-x86_64-darwin)
       racc (~> 1.4)
+    overcommit (0.59.1)
+      childprocess (>= 0.6.3, < 5)
+      iniparse (~> 1.4)
+      rexml (~> 3.2)
     parallel (1.22.1)
     parser (3.1.2.1)
       ast (~> 2.4.1)
@@ -236,6 +242,7 @@ DEPENDENCIES
   debug
   jbuilder
   jsbundling-rails
+  overcommit
   pg (~> 1.1)
   propshaft
   puma (~> 5.0)

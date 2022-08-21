@@ -1,0 +1,124 @@
+# Use this file to configure the Overcommit hooks you wish to use. This will
+# extend the default configuration defined in:
+# https://github.com/sds/overcommit/blob/master/config/default.yml
+#
+# At the topmost level of this YAML file is a key representing type of hook
+# being run (e.g. pre-commit, commit-msg, etc.). Within each type you can
+# customize each hook, such as whether to only run it on certain files (via
+# `include`), whether to only display output if it fails (via `quiet`), etc.
+#
+# For a complete list of hooks, see:
+# https://github.com/sds/overcommit/tree/master/lib/overcommit/hook
+#
+# For a complete list of options that you can use to customize hooks, see:
+# https://github.com/sds/overcommit#configuration
+#
+# Uncomment the following lines to make the configuration take effect.
+
+PreRebase:
+  All:
+    enabled: false
+
+PreCommit:
+  BundleCheck:
+    enabled: true
+    description: "Check Gemfile dependencies"
+    required_executable: "bundle"
+    flags: ["check"]
+    install_command: "gem install bundler"
+    include:
+      - "Gemfile"
+      - "Gemfile.lock"
+      - "*.gemspec"
+
+  RuboCop:
+    enabled: true
+    description: "Analyze with RuboCop"
+    required_executable: "bin/rubocop"
+    flags: ["--force-exclusion", "--display-cop-names"]
+    install_command: "gem install rubocop"
+    include:
+      - "**/*.gemspec"
+      - "**/*.rake"
+      - "**/*.rb"
+      - "**/*.ru"
+      - "**/Gemfile"
+      - "**/Rakefile"
+
+  TrailingWhitespace:
+    enabled: true
+    description: "Check for trailing whitespace"
+    required_executable: "grep"
+    flags: ["-IHn", "[ \t]$"]
+
+  EsLint:
+    enabled: true
+    description: "Analyze with ESLint"
+    required_executable: "eslint"
+    flags: ["--format=compact"]
+    install_command: "yarn add eslint --dev"
+    include:
+      - "**/*.js"
+      - "**/*.ts"
+
+  Prettier:
+    enabled: true
+    description: "Analyze with Prettier"
+    required_executable: "yarn"
+    flags: ["prettier:check"]
+
+CommitMsg:
+  ALL:
+    requires_files: false
+    quiet: false
+
+  CapitalizedSubject:
+    enabled: false
+    description: "Check subject capitalization"
+
+  EmptyMessage:
+    enabled: true
+    description: "Check for empty commit message"
+    quiet: true
+
+  GerritChangeId:
+    enabled: false
+    description: "Ensure Gerrit Change-Id is present"
+    required: true
+
+  HardTabs:
+    enabled: false
+    description: "Check for hard tabs"
+
+  MessageFormat:
+    enabled: false
+    description: "Check commit message matches expected pattern"
+    pattern: "(.+)[|](.+)[|](.+)"
+    expected_pattern_message: "<Issue Id> | <Commit Message Description> | <Developer(s)>"
+    sample_message: "DEFECT-1234 | Refactored Onboarding flow | John Doe"
+
+  RussianNovel:
+    enabled: false
+    description: "Check length of commit message"
+    quiet: true
+
+  SingleLineSubject:
+    enabled: true
+    description: "Check subject line"
+
+  SpellCheck:
+    enabled: false
+    description: "Check for misspelled words"
+    required_executable: "hunspell"
+    flags: ["-a"]
+
+  TextWidth:
+    enabled: true
+    description: "Check text width"
+    max_subject_width: 60
+    min_subject_width: 0
+    max_body_width: 72
+
+  TrailingPeriod:
+    enabled: true
+    description: "Check for trailing periods in subject"
