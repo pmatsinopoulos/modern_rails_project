@@ -1,3 +1,14 @@
+<div class="dropdown">
+  <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Dropdown
+  </button>
+  <ul class="dropdown-menu">
+    <li><a class="dropdown-item" href="#">Dropdown item</a></li>
+    <li><a class="dropdown-item" href="#">Dropdown item</a></li>
+    <li><a class="dropdown-item" href="#">Dropdown item</a></li>
+  </ul>
+</div>
+
 <%= turbo_stream_from "messages" %>
 
 <%= turbo_frame_tag "contact-us-form" do %>
