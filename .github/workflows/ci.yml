@@ -1,0 +1,66 @@
+name: CI
+on: [push]
+jobs:
+  tests:
+    name: Test
+    runs-on: ubuntu-latest
+    env:
+      RAILS_ENV: test
+      PGHOST: localhost
+      PGUSER: postgres
+      PGPASSWORD: postgres
+    services:
+      postgres:
+        image: postgres:11
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+      redis:
+        image: redis:alpine
+        ports:
+          - 6379:6379
+    steps:
+      - name: Checkout Repository Code
+        uses: actions/checkout@v3
+      - name: Install
+        uses: ./.github/actions/install
+      - name: Create db
+        run: bin/rails db:create
+      - name: Migrate db
+        run: bin/rails db:migrate db:migrate > /dev/null
+      - name: Run tests
+        run: bin/rspec
+
+  rubocop:
+    name: Lint Code with Rubocop
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository Code
+        uses: actions/checkout@v3
+      - name: Install
+        uses: ./.github/actions/install
+      - name: Rubocop
+        run: |
+          bin/rubocop --fail-level A
+
+  assets_precompile:
+    name: Assets Precompile Test
+    runs-on: ubuntu-latest
+    env:
+      RAILS_ENV: production
+      SECRET_KEY_BASE: ${{ secrets.ASSETS_PRECOMPILE_SECRET_KEY_BASE }}
+    steps:
+      - name: Checkout Repository Code
+        uses: actions/checkout@v3
+      - name: Install
+        uses: ./.github/actions/install
+      - name: Assets Precompile
+        run: |
+          bin/rails assets:precompile RAILS_ENV=production

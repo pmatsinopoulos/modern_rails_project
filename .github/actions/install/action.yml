@@ -1,0 +1,30 @@
+name: "Install"
+description: "Install dependencies"
+runs:
+  using: "composite"
+  steps:
+    - name: Install Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: "16"
+    - name: Install Yarn
+      run: |
+        curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+        echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee
+        sudo apt-get -y install yarn
+      shell: bash
+    - name: Setup Ruby
+      uses: ruby/setup-ruby@v1.114.0
+      with:
+        ruby-version: "3.1.2"
+        bundler-cache: true
+    - name: Install PostgreSQL client
+      run: |
+        sudo apt-get -y install libpq-dev
+      shell: bash
+    - name: Bundle Config
+      run: bundle config set --local deployment --without development
+      shell: bash
+    - name: Bundle Install
+      run: bundle install
+      shell: bash
